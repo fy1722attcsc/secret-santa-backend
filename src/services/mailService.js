@@ -2,6 +2,7 @@ const axios = require("axios");
 
 // ------------------ Verification Email ------------------
 exports.sendVerificationEmail = async (email, token) => {
+  console.log("📩 Sending verification email using Brevo API...");
   const verifyUrl = `${process.env.FRONTEND_URL}/verify?token=${token}`;
 
   const data = {
