@@ -8,26 +8,28 @@ const drawRoutes = require("./routes/drawRoutes");
 
 const app = express();
 app.use(express.json());
+
+// ------------------ CORS CONFIG ------------------
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://secret-santa-local.vercel.app"  // <-- your actual Vercel domain
+  "https://secret-santa-local.vercel.app"  // <-- Your Vercel domain
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow backend-to-backend requests
+      if (!origin) return callback(null, true); // allow backend/internal calls
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
-        console.log("Blocked by CORS:", origin);
-        return callback(new Error("Not allowed by CORS"), false);
+        console.log("❌ Blocked by CORS:", origin);
+        return callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
   })
 );
-
+// -------------------------------------------------
 
 app.use("/api/participants", participantRoutes);
 app.use("/api/draw", drawRoutes);
