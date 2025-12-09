@@ -24,9 +24,8 @@ exports.register = async (req, res) => {
       token
     });
 
-    const verifyLink = `${process.env.FRONTEND_URL}/verify?token=${token}&id=${user._id}`;
-
-    await mailService.sendVerificationEmail(email, verifyLink);
+    // ⬇️ PASS ONLY token + userID — DO NOT build URL here
+    await mailService.sendVerificationEmail(email, token, user._id);
 
     res.json({ message: "Verification email sent." });
   } catch (err) {
@@ -65,4 +64,3 @@ exports.getAllVerified = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-

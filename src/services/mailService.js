@@ -1,25 +1,26 @@
 const axios = require("axios");
 
 // ------------------ Verification Email ------------------
-exports.sendVerificationEmail = async (email, token) => {
-  console.log("📩 Sending verification email using Brevo API...");
-  const verifyUrl = `${process.env.FRONTEND_URL}/verify?token=${token}`;
+exports.sendVerificationEmail = async (email, token, userId) => {
+  console.log("📩 Sending verification email (API)…");
+
+  const verifyUrl = `${process.env.FRONTEND_URL}/verify?token=${token}&id=${userId}`;
 
   const data = {
     sender: { email: process.env.MAIL_FROM },
     to: [{ email }],
     subject: "Verify Your Email for Secret Santa 🎅",
     htmlContent: `
-        <h2>Welcome to Secret Santa 🎄</h2>
-        <p>Please verify your email by clicking the button below:</p>
+      <h2>Welcome to Secret Santa 🎄</h2>
+      <p>Please verify your email by clicking the button below:</p>
 
-        <a href="${verifyUrl}"
-          style="padding:10px 15px;background:#E63946;color:white;text-decoration:none;border-radius:5px;">
-          Verify Email
-        </a>
+      <a href="${verifyUrl}"
+         style="padding:10px 15px;background:#E63946;color:white;text-decoration:none;border-radius:5px;">
+         Verify Email
+      </a>
     `,
-    trackClicks: false, // 🔥 prevents Brevo from rewriting links
-    trackOpens: false   // optional but recommended
+    trackClicks: false,  // 🔥 Disable tracking so Brevo does NOT rewrite URL
+    trackOpens: false
   };
 
   await axios.post("https://api.brevo.com/v3/smtp/email", data, {
