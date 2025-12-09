@@ -12,13 +12,13 @@ app.use(express.json());
 // ------------------ CORS CONFIG ------------------
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://secret-santa-local.vercel.app"  // <-- Your Vercel domain
+  "https://secret-santa-local.vercel.app"   // <-- YOUR FRONTEND URL
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow backend/internal calls
+      if (!origin) return callback(null, true); // allow backend/local tools
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
