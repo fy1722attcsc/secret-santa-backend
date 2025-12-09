@@ -40,7 +40,7 @@ exports.sendAssignmentEmail = async (email, assignedPerson) => {
     htmlContent: `
       <h2>🎅 Secret Santa Assignment 🎄</h2>
       <p>You have been assigned:</p>
-      <h3>${assignedPerson.name}</h3>
+      <h3>${assignedPerson}</h3>
       <p>Make sure your gift is thoughtful and fun!</p>
     `
   };
