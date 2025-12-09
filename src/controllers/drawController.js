@@ -19,7 +19,7 @@ exports.runDraw = async (req, res) => {
 
       await mailService.sendAssignmentEmail(
         pair.giver.email,
-        pair.receiver.name
+        pair.receiver
       );
     }
 
