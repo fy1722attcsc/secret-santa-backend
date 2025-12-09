@@ -25,4 +25,3 @@ exports.sendVerificationEmail = async (email, token) => {
     },
   });
 };
-
