@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const controller = require("../controllers/drawController");
+const drawController = require("../controllers/drawController");
 
-router.post("/", controller.runDraw);
+router.post("/", drawController.runDraw);
+router.get("/state", drawController.getDrawState);
 
 module.exports = router;
